@@ -58,6 +58,7 @@ export default function BooksTable() {
 
   function randomizeSeed() {
     setSeed(Math.floor(Math.random() * 1000000));
+    setGenerateMoreBooks(0)
   }
 
   function handleScroll() {
@@ -85,7 +86,7 @@ export default function BooksTable() {
           <Form.Label>Language & Region</Form.Label>
           <Form.Select
             value={language}
-            onChange={(e) => setLanguage(e.target.value)}
+            onChange={(e) => {setLanguage(e.target.value); setGenerateMoreBooks(0)}}
           >
             <option value="EN">English (USA)</option>
             <option value="RU">Russian (Russia)</option>
@@ -99,7 +100,7 @@ export default function BooksTable() {
             <Form.Control
               type="number"
               value={seed}
-              onChange={(e) => setSeed(Number(e.target.value))}
+              onChange={(e) => {setSeed(Number(e.target.value)); setGenerateMoreBooks(0)}}
             />
             <Button variant="secondary" onClick={randomizeSeed}>
               🔀
@@ -114,7 +115,7 @@ export default function BooksTable() {
             min={0}
             max={10}
             step={0.1}
-            onChange={(e) => setLikesPerBook(Number(e.target.value))}
+            onChange={(e) => {setLikesPerBook(Number(e.target.value)); setGenerateMoreBooks(0)}}
           />
           <Form.Text>{likesPerBook.toFixed(1)} likes per book</Form.Text>
         </Form.Group>
@@ -122,20 +123,19 @@ export default function BooksTable() {
         <Form.Group className="w-1/5">
           <Form.Label>Average Reviews per Book</Form.Label>
           <Form.Control
-            type="text" // Keep text type for flexible input handling
-            value={reviewsPerBook.toString()} // Ensure the value is always a string
+            type="text"
+            value={reviewsPerBook.toString()}
             onChange={(e) => {
               let value = e.target.value;
+              setGenerateMoreBooks(0)
 
-              // Allow only valid characters (digits, one ".", and no extra characters)
               if (/^\d*\.?\d*$/.test(value)) {
-                setReviewsPerBook(value); // Temporarily store as string
+                setReviewsPerBook(value);
               }
             }}
             onBlur={() => {
-              // Convert back to a float on blur
               if (reviewsPerBook !== "") {
-                setReviewsPerBook(parseFloat(reviewsPerBook) || 0); // Fallback to 0 if input is invalid
+                setReviewsPerBook(parseFloat(reviewsPerBook) || 0);
               }
             }}
           />

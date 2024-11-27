@@ -15,13 +15,14 @@ export const generateFakeBooks = async (
   } else if (language === "JA") {
     selectedFaker = fakerJA;
   }
-  selectedFaker.seed(seed + pageIndex * 1000);
+
+  const likesSeed = Math.round(likes * 1000);
+  const finalSeed = seed + (pageIndex * 1000) + likesSeed + reviews;
+
+  selectedFaker.seed(finalSeed);
 
   const books = [];
-  let defaultValue = 20;
-  if (pageIndex > 0) {
-    defaultValue = 10;
-  }
+  const defaultValue = pageIndex > 0 ? 10 : 20;
   for (let i = 0; i < defaultValue; i++) {
     const title = selectedFaker.book.title();
     const loremTitle = selectedFaker.lorem.sentence({ min: 2, max: 3 });
