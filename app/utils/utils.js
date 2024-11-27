@@ -46,7 +46,7 @@ export const generateFakeBooks = async (
       title:
         selectedFaker === faker
           ? title
-          : loremTitle.charAt(0).toUpperCase() + loremTitle.slice(1), // Random book title with 2-5 words
+          : loremTitle.charAt(0).toUpperCase() + loremTitle.slice(1, -1), // Random book title with 2-5 words
       authors: authors, // Generate author names
       publisher:
         selectedFaker === faker
