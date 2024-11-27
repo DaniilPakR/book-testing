@@ -31,15 +31,18 @@ export default function BooksTableItem({ book, index }) {
         <tr>
           <td colSpan={6}>
             <div className="d-flex">
-              <Image
-                src={book.coverImage}
-                alt={book.title}
-                style={{
-                  width: "100px",
-                  height: "150px",
-                  marginRight: "20px",
-                }}
-              />
+              <div className="mr-4 w-24 h-36 bg-gradient-to-br from-gray-700 to-gray-500 rounded-lg shadow-md p-2 flex flex-col text-xs text-white justify-between">
+                <div className="text-center font-bold text-sm">
+                  <p>{book.title}</p>
+                </div>
+                <div className="flex flex-col text-center mt-2 space-y-1">
+                  {book.authors.map((author) => (
+                    <p key={author} className="text-[10px] italic">
+                      {author}
+                    </p>
+                  ))}
+                </div>
+              </div>
               <div>
                 <h5>{book.title}</h5>
                 <p>
