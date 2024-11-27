@@ -17,7 +17,7 @@ export const generateFakeBooks = async (
   }
 
   const likesSeed = Math.round(likes * 1000);
-  const finalSeed = seed + (pageIndex * 1000) + likesSeed + reviews;
+  const finalSeed = seed + pageIndex * 1000 + likesSeed + reviews;
 
   selectedFaker.seed(finalSeed);
 
@@ -53,16 +53,9 @@ export const generateFakeBooks = async (
         selectedFaker === faker
           ? selectedFaker.book.publisher()
           : selectedFaker.company.name(), // Random publisher name
-      coverImage: selectedFaker.image.urlPlaceholder({
-        width: 100,
-        height: 150,
-        backgroundColor: "787878",
-        textColor: "1f1e1e",
-        format: "png",
-        text: selectedFaker === faker
-        ? title
-        : loremTitle.charAt(0).toUpperCase() + loremTitle.slice(1),
-      }),
+      coverImage: `https://via.placeholder.com/100x150.png?text=${encodeURIComponent(
+        selectedFaker === faker ? title : loremTitle
+      )}`,
       reviews: Array.from(
         {
           length:
@@ -97,3 +90,13 @@ export const generateFakeBooks = async (
 // `https://via.placeholder.com/100x150.png?text=${encodeURIComponent(
 //   selectedFaker === faker ? title : loremTitle
 // )}`;
+// selectedFaker.image.urlPlaceholder({
+//         width: 100,
+//         height: 150,
+//         backgroundColor: "787878",
+//         textColor: "1f1e1e",
+//         format: "png",
+//         text: selectedFaker === faker
+//         ? title
+//         : loremTitle.charAt(0).toUpperCase() + loremTitle.slice(1),
+//       })
